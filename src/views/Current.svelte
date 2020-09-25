@@ -2,7 +2,7 @@
   import Weather from "../components/Weather.svelte";
   import { fahrenheitToCelsius, celsiusToFahrenheit } from "temperature";
   import { getJSON } from "../lib/async.js";
-  import { onMount } from "svelte";
+  import { store } from "../store.js";
 
   let temp = 21.7;
   let unit = "c";
@@ -15,18 +15,18 @@
   // };
 
   function getWeather() {
-    return getJSON("/api/weather?city=charleston,sc&country=us").then(
-      results => {
-        console.log("results", results);
-        const weather = {
-          temp: `${results.temp} &deg; C`,
-          icon: results.weather.icon,
-          description: results.weather.description,
-          city: `${results.city_name}, ${results.state_code}`
-        };
-        return weather;
-      }
-    );
+    const current = $store.current.toLowerCase().replace(", ", ",");
+
+    return getJSON(`/api/weather?city=${current}&country=us`).then(results => {
+      console.log("results", results);
+      const weather = {
+        temp: `${results.temp} &deg; C`,
+        icon: results.weather.icon,
+        description: results.weather.description,
+        city: `${results.city_name}, ${results.state_code}`
+      };
+      return weather;
+    });
   }
 
   $: displayTemp = `${Math.floor(temp)} &deg; ${unit.toUpperCase()}`;

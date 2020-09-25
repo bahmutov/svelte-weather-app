@@ -1,11 +1,16 @@
 <script>
   import CityCard from "../components/CityCard.svelte";
   import page from "page";
+  import { dispatch } from "../store.js";
   let cities = ["Boston, MA", "New York, NY"];
 
   function changeCurrentCity(city) {
-    return () => {
+    return async () => {
       console.log("clicked on city", city);
+      await dispatch({
+        type: "SET_CURRENT",
+        payload: city
+      });
       page("/");
     };
   }
