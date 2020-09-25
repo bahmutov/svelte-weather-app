@@ -2,6 +2,8 @@
   import CityCard from "../components/CityCard.svelte";
   import page from "page";
   import { dispatch } from "../store.js";
+  import { blur } from "svelte/transition";
+
   let cities = ["Boston, MA", "New York, NY"];
 
   function changeCurrentCity(city) {
@@ -25,14 +27,16 @@
   }
 </style>
 
-<nav>
-  <div>Favorites</div>
-  <a href="">Add</a>
-</nav>
-<main>
-  <section>
-    {#each cities as city}
-      <CityCard {city} on:click={changeCurrentCity(city)} />
-    {/each}
-  </section>
-</main>
+<div in:blur={{ delay: 1000, duration: 1000 }}>
+  <nav>
+    <div>Favorites</div>
+    <a href="">Add</a>
+  </nav>
+  <main>
+    <section>
+      {#each cities as city}
+        <CityCard {city} on:click={changeCurrentCity(city)} />
+      {/each}
+    </section>
+  </main>
+</div>
