@@ -68,7 +68,7 @@
     |
     <a on:click|preventDefault={convertToC}>C</a>
   </div>
-  <a href="">Favorites</a>
+  <a href="/favorites">Favorites</a>
 </nav>
 <main>
   <p>

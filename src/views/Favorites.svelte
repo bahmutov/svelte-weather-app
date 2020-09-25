@@ -1,10 +1,12 @@
 <script>
   import CityCard from "../components/CityCard.svelte";
+  import page from "page";
   let cities = ["Boston, MA", "New York, NY"];
 
   function changeCurrentCity(city) {
     return () => {
       console.log("clicked on city", city);
+      page("/");
     };
   }
 </script>
